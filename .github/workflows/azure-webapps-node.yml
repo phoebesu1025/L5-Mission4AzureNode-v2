@@ -20,7 +20,7 @@
 on:
   push:
     branches: [ "main" ]
-    workflow_dispatch:
+  workflow_dispatch:
 
 env:
   AZURE_WEBAPP_NAME: your-app-name    # set this to your application's name
@@ -33,7 +33,6 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    working-directory: backend
     steps:
     - uses: actions/checkout@v3
 
@@ -48,6 +47,8 @@ jobs:
         npm install
         npm run build --if-present
         npm run test --if-present
+        working-directory: backend
+
 
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v3
@@ -59,8 +60,6 @@ jobs:
     permissions:
       contents: none
     runs-on: ubuntu-latest
-    working-directory: backend
-
     needs: build
     environment:
       name: 'Development'
