@@ -1,5 +1,13 @@
 const express = require('express')
 const app = express()
+env.config()
 
-app.get('/', (req, res) => res.json({ message: "Hello" }))
-app.listen(process.env.PORT || 8080)
+const PORT = process.env.PORT || 8080
+app.listen(PORT, () => {
+    console.log("listening to port", PORT)
+})
+
+
+app.get("/fifa", (req, res) => {
+    res.send("Welcome to FIFA world Cup API")
+})
