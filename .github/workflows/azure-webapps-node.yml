@@ -20,7 +20,8 @@
 on:
   push:
     branches: [ "main" ]
-  workflow_dispatch:
+    workflow_dispatch:
+    paths: 'backend'
 
 env:
   AZURE_WEBAPP_NAME: your-app-name    # set this to your application's name
@@ -41,11 +42,9 @@ jobs:
       with:
         node-version: ${{ env.NODE_VERSION }}
         cache: 'npm'
-        cache-dependency-path: backend/package-lock.json
 
     - name: npm install, build, and test
       run: |
-       working-directory: ./backend
         npm install
         npm run build --if-present
         npm run test --if-present
