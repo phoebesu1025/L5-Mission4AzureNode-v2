@@ -21,7 +21,6 @@ on:
   push:
     branches: [ "main" ]
     workflow_dispatch:
-    paths: './backend'
 
 env:
   AZURE_WEBAPP_NAME: your-app-name    # set this to your application's name
@@ -34,6 +33,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    working-directory: backend
     steps:
     - uses: actions/checkout@v3
 
@@ -59,6 +59,8 @@ jobs:
     permissions:
       contents: none
     runs-on: ubuntu-latest
+    working-directory: backend
+
     needs: build
     environment:
       name: 'Development'
